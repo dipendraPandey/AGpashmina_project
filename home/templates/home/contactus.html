@@ -1,0 +1,173 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load thumbnail %}
+{% load maincontainer_tag %}
+{% block container %}
+<!-- main container stars here -->
+<div class="container-fluid px-0 padding-top-80">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert-{{ message.tags }} alert-dismissible" role="alert">
+        <p class="close" data-dismiss="alert" aria-label="Close" onclick="removeMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </p>
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="col-12 mb-4 p-0">
+        {% main_frame_content %}
+    </div>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+                <div class="login-brand">
+                    <h3><span style="color: darkgoldenrod;">AG</span>Pasmina </h3>
+                </div>
+
+                <div class="card card-primary">
+                    <div class="row m-0">
+                        <div class="col-12 col-md-12 col-lg-5 p-0">
+                            <div class="card-header text-center">
+                                <h4>Contact Us</h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" id="myForm">
+                                    {% csrf_token %}
+                                    <div class="form-group floating-addon">
+                                        <label>Name</label>
+                                        {{form.name.errors}}
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="far fa-user"></i>
+                                                </div>
+                                            </div>
+                                            {{form.name}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group floating-addon">
+                                        <ol>
+                                           {% for error in form.email.errors%}
+                                        <li style="color:red;list-style:none;"><strong>{{ error|escape }}</strong></li>
+                                            {%endfor%}
+                                        </ol>
+                                        <label>Email</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-envelope"></i>
+                                                </div>
+                                            </div>
+                                            {{form.email}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Message</label>
+                                        {{form.message.errors}}
+                                        {{form.message}}
+                                    </div>
+
+                                    <div class="form-group text-right">
+                                        <button type="submit" class="btn btn-round btn-lg btn-primary">
+                                            Send Message
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-7 p-0">
+                            <div class="responsive-map-container">
+                                <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.8287678063075!2d85.32575321453794!3d27.691686732787975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19bb6d5813b3%3A0xd8399a99677e490b!2zTmVwYWwgTWVnYSBDb2xsZWdlIOCkqOClh-CkquCkvuCksiDgpK7gpYfgpJfgpL4g4KSV4KSy4KWH4KSc!5e0!3m2!1sen!2snp!4v1600700002389!5m2!1sen!2snp"
+                                        frameborder="0" style="border:0;" allowfullscreen="true" aria-hidden="false"
+                                        tabindex="0"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 my-3">
+                <h5 class="text-center">Inquery & Contact Us</h5>
+                <div class="card card-danger">
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-center">
+                            {% for member in contact_team%}
+                            <div class="col-6 col-md-3 col-lg-3 py-3">
+                                <div class="user-item">
+                                    <img alt="image" src="{{member.image|thumbnail_url:'avatar'}}" class="img-fluid">
+                                    <div class="user-details">
+                                        <div class="user-name">
+                                            <h6>{{member.name}}</h6>
+                                        </div>
+                                        <div class="user-name text-muted py-1"><i class="fas fa-mobile-alt mr-2"
+                                                                                  style="font-size:1.5rem;"></i>
+                                            <p>{{member.phone_number_1}}</p>
+                                            <p>{{member.phone_number_2}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endfor%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% block javascript%}
+<script>
+function myFunction() {
+  document.getElementById("myForm").reset();
+}
+
+</script>
+{% endblock javascript%}
+<!-- main container ends here -->
+{% endblock container%}
+
+
+<div class="form-group floating-addon">
+    <label>Name</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <i class="far fa-user"></i>
+            </div>
+        </div>
+        <input id="name" type="text" class="form-control" name="name" autofocus
+               placeholder="Name" required>
+    </div>
+</div>
+
+<div class="form-group floating-addon">
+    <label>Email</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <i class="fas fa-envelope"></i>
+            </div>
+        </div>
+        <input id="email" type="email" class="form-control" name="email"
+               placeholder="Email" required>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Message</label>
+    <textarea class="form-control" name="message" placeholder="Type your message"
+              data-height="150" required></textarea>
+</div>
+
+<div class="form-group text-right">
+    <button type="submit" class="btn btn-round btn-lg btn-primary" onclick="myFunction()">
+        Send Message
+    </button>
+</div>

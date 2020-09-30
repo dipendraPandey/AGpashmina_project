@@ -1,0 +1,203 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load thumbnail %}
+{% load maincontainer_tag %}
+{% block container %}
+<!-- main container stars here -->
+<div class="container-fluid px-0 padding-top-80">
+    <!-- container with image  -->
+    <div class="col-12 mb-4 p-0">
+        {% main_frame_content %}
+    </div>
+
+    <div class="container">
+        <div class="row  my-3 d-flex justify-content-center" style="background-color:#c2c8f8">
+            <div class="col-12 col-md-4 text-center p">
+                <div class="form-group">
+                    <h6>Categories</h6>
+                    <select id="id_category" class="form-control select2">
+                        <option value="">---------</option>
+                        {% for category in category_list%}
+                        <option value="{{category.name}}">{{category.name|title}}</option>
+                        {% endfor%}
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 text-center">
+                <div class="form-group">
+                    <h6>Sub Categories </h6>
+                    <select id="id_sub_category" class="form-control select2">
+                        <option value="">---------</option>
+                        {% for category in subcategory_list%}
+                        <option value="{{category.name}}">{{category.name|title}}</option>
+                        {% endfor%}
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-3 bg-whitesmoke py-3">
+                <form>
+                    <div class="input-group">
+                        <input id="search_box" type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-append">
+                            <button id="search_button" class="btn btn-primary" onclick="event.preventDefault()"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-12 my-3 hidesmalldevice ">
+                    <h5 class="text-center">Best Selling</h5>
+                </div>
+                <div class="col-12 hidesmalldevice ">
+                    <div class="row">
+                        {% for product in best_selling%}
+                        <div class="col-12 col-sm-4 col-md-12 col-lg-12">
+                            <div class="product_item card" style="margin:0;">
+                                <img alt="image" src="{{product.image|thumbnail_url:'product'}}" class="img-fluid"
+                                     style="width: 100%;">
+                                <div class="product_btns">
+                                    <a href="detailpage.html" class="product_btn btn btn-primary" style="color: black;">
+                                        <i class="fas fa-eye" style="color:white;"> Details</i>
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="text-center"> {{product.title}}</p>
+                        </div>
+                        {%endfor%}
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-12 col-md-9 col-lg-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>All Products</h4>
+                    </div>
+                    <div id="product_list" class="card-body">
+                        <div class="row mb-5">
+                            {% for product in products %}
+                            <div class="col-6 col-md-4 col-lg-4">
+                                <div class="product_item card" style="margin:0;">
+                                    <img alt="image" src="{{product.image|thumbnail_url:'product'}}" class="img-fluid"
+                                         style="width: 100%;">
+                                    <div class="product_btns">
+                                        <a href="{% url 'product-detail' product.slug %}"
+                                           class="product_btn btn btn-primary" style="color: black;">
+                                            <i class="fas fa-eye" style="color:white;"> Details</i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p class="text-center"> {{product.name}}</p>
+                            </div>
+                            {% endfor%}
+
+                        </div>
+
+                         <!-- FILTERED Pagination -->
+                    <div class="d-flex flex-column m-auto pagination mt-5">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination pg-grey justify-content-center">
+                                {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="?{% if query %}q={{query}}&{% endif %}page={{ page_obj.previous_page_number }}">&laquo;
+                                        Previous</a>
+                                </li>
+                                {% endif %}
+                                {% for i in page_obj.paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?{% if query %}q={{query}}&{% endif %}page={{ i }}">{{i}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="?{% if query %}q={{query}}&{% endif %}page={{ page_obj.next_page_number }}">Next
+                                        &raquo;</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- end pagination-->
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- main container ends here -->
+
+{% block javascript %}
+<script>
+    $("#id_category").change(function () {
+      var category = $(this).val();
+      var sub_category = $("#id_sub_category").val();
+      $.ajax ({                       // initialize an AJAX request
+        url:"{% url 'ajax_load_category_product' %}",  // set the url of the request
+        data: {
+          'category': category ,
+          'sub_category': sub_category
+        },
+        success: function (data) {   // `data` is the return of the `product_search_filter` view function
+          $("#product_list").html(data);  // replace the contents in the product list
+        }
+      });
+
+    });
+
+    $("#id_sub_category").change(function () {
+      var sub_category = $(this).val();
+      var category = $("#id_category").val();
+      $.ajax ({                       // initialize an AJAX request
+        url:"{% url 'ajax_load_category_product' %}",  // set the url of the request
+        data: {
+          'category': category ,
+          'sub_category': sub_category
+        },
+        success: function (data) {   // `data` is the return of the `product_search_filter` view function
+          $("#product_list").html(data);  // replace the contents in the product list
+        }
+      });
+
+    });
+
+    $("#search_box").keyup(function () {
+      var search_text = $("#search_box").val(); // get the searched
+      var category = $("#id_category").val(); // get selected
+      var sub_category = $("#id_sub_category").val(); // get selected
+      $.ajax ({                       // initialize an AJAX request
+        url:"{% url 'ajax_load_category_product' %}",  // set the url of the request
+        data: {
+          'category': category ,
+          'sub_category': sub_category,
+          'search_text':search_text
+        },
+        success: function (data) {   // `data` is the return of the `product_search_filter` view function
+          $("#product_list").html(data);  // replace the contents in the product list
+        }
+      });
+
+    });
+
+</script>
+<script>
+
+</script>
+{% endblock javascript %}
+{% endblock container%}

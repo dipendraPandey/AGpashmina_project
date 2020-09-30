@@ -1,0 +1,129 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load thumbnail %}
+{%load maincontainer_tag %}
+{% block container %}
+ <!-- main container stars here -->
+    <div class="container-fluid padding-top-80 px-0">
+            <div class="col-12 p-0">
+        {% main_frame_content %}
+      </div>
+        <div class="container-fluid">
+      <!-- crousel container here -->
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-6 ">
+          {% if carousel_latest %}
+          <div class="card">
+            <h5 class="text-center m-0" style="color: #6777ef;">Latest</h5>
+            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                {% for carousel in carousel_latest %}
+                <li data-target="#carouselExampleIndicators2" data-slide-to="{{forloop.counter0}}" ></li>
+                {% endfor %}
+              </ol>
+              <div class="carousel-inner">
+                {% for carousel in carousel_latest %}
+                <div class="carousel-item {% if forloop.first %}active{%endif%}" style="height:500px">
+                  <img class="d-block" src="{{carousel.image|thumbnail_url:'carousel'}}" alt="slide" style="max-width:100%; max-height:100%; display:block; margin-left:auto; margin-right: auto;">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5 style="color:#6777ef;">{{carousel.title}}</h5>
+                    <p style="color:#6777ef;">{{carousel.detail}}</p>
+                  </div>
+                </div>
+                {% endfor%}
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+
+          </div>
+          {% endif%}
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 ">
+          <div class="card">
+            <h5 class="text-center m-0" style="color: #6777ef;">Trending</h5>
+            <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                {% for carousel in carousel_trending %}
+                <li data-target="#carouselExampleIndicators3" data-slide-to="{{forloop.counter0}}" {% if forloop.first %}class="active"{%endif%}></li>
+                {%endfor%}
+              </ol>
+              <div class="carousel-inner">
+                {% for carousel in carousel_trending %}
+                <div class="carousel-item {% if forloop.first %}active{%endif%}" style="height:500px">
+                   <img class="d-block" src="{{carousel.image|thumbnail_url:'carousel'}}" alt="slide" style="max-width:100%; max-height:100%; display:block; margin-left:auto; margin-right: auto;">
+                </div>
+                {%endfor%}
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators3" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- crousel contenent ends here -->
+
+      <!-- Feature Produce container -->
+      <div class="row d-flex justify-content-center">
+        <div class="col-12 py-5">
+          <h3 class="text-center" style="color:  #6777ef ;">Feature Products</h3>
+        </div>
+        {% for product in feature_product %}
+        <div class="col-6 col-md-3 col-lg-3">
+          <div class="product__item card card-primary">
+            <img alt="image" src="{{ product.image|thumbnail_url:'product'}}" class="img-fluid" style="width: 100%;">
+            <div class="product__btns">
+              <a href="{% url 'product-detail' product.slug %}" class="product__btn btn btn-primary" style="color: black;">
+                <i class="fas fa-eye" style="color:white;"> View product</i>
+
+              </a>
+            </div>
+          </div>
+        </div>
+        {%endfor%}
+      <!-- Featuer Product container ends here -->
+
+
+    </div>
+
+          <!-- our Product container starts here -->
+      <div class="row py-5 deeprow">
+        <div class="col-12">
+          <h3 class="text-center" style="color:  #1c298b;">Our Products</h3>
+        </div>
+        {% for product in our_product %}
+        <div class="col-12 p-5">
+          <div class="card mb-3">
+            <div class="row no-gutters cardorientation">
+              <div class="col-md-4" >
+                 <img class="card-img" src="{{product.image|thumbnail_url:'details'}}" alt="image" style="height:auto; width:100%; display:block;  margin-left:auto; margin-right: auto;">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body ">
+                  <h5 class="card-title">{{product.title}}</h5>
+                  <p class="card-text">{{product.detail}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {%endfor %}
+      </div>
+      <!-- our Product conainer ends here -->
+      </div>
+
+    </div>
+    <!-- main container ends here -->
+{% endblock container%}

@@ -1,0 +1,8 @@
+{% for content in maincontent%}
+<div class="hero text-white hero-bg-image hero-bg-parallax" data-background="{{content.image.url}}">
+    <div class="hero-inner text-center">
+        <h2>{{content.title}}</h2>
+            <p class="lead">{{content.detail}}</p>
+    </div>
+</div>
+{%endfor%}
