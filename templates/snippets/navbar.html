@@ -1,6 +1,9 @@
 {%load static%}
 <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#">
+    <span style="color: #fce850;">AG</span>
+    <span style="color: #ffffff;">Pasmina</span>
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -8,17 +11,17 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item {% if feature_product %}active{%endif%}">
-        <a class="nav-link" href="{% url 'homepage'%}">Home</a>
+      <li class="nav-item active-nav-item">
+        <a class="nav-link" href="{% url 'homepage'%}">home</a>
       </li>
-      <li class="nav-item {% if products %}active{%endif%}">
-        <a class="nav-link" href="{% url 'product-list'%}">Products</a>
+      <li class="nav-item {% if products %}active-nav-item{%endif%}">
+        <a class="nav-link" href="{% url 'product-list'%}">products</a>
       </li>
-      <li class="nav-item {% if team %}active{%endif%}">
-        <a class="nav-link" href="{% url 'about-us'%}">About Us</a>
+      <li class="nav-item {% if team %}active-nav-item{%endif%}">
+        <a class="nav-link" href="{% url 'about-us'%}">about us</a>
       </li>
-      <li class="nav-item {% if contact_team %}active{%endif%}">
-        <a class="nav-link" href="{% url 'contact-us'%}">Contact</a>
+      <li class="nav-item {% if contact_team %}active-nav-item{%endif%}">
+        <a class="nav-link" href="{% url 'contact-us'%}">contact</a>
       </li>
     </ul>
   </div>
