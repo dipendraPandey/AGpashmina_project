@@ -405,3 +405,26 @@ footer .copyrights .organization:hover {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 2px;
 }
+
+/* navbar starts */
+.navbar {
+  background-color: rgba(96, 110, 214, 1) !important;
+}
+
+.navbar li a {
+  color: #fff !important;
+  margin: 0 12px;
+  font-family: "Nunito", "Segoe UI", arial;
+}
+
+@media screen and (min-width: 700px) {
+  .navbar a {
+    color: #fff !important;
+  }
+
+  .navbar .nav-link {
+    padding: 15px;
+  }
+}
+
+/* navbar ends */
