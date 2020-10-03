@@ -1,6 +1,31 @@
-    <!-- navigaion starts here -->
-    {%load static%}
-    <nav class="navbar navbar-expand-lg bg-primary">
+<!-- navigaion starts here -->
+{%load static%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item {% if feature_product %}active{%endif%}">
+        <a class="nav-link" href="{% url 'homepage'%}">Home</a>
+      </li>
+      <li class="nav-item {% if products %}active{%endif%}">
+        <a class="nav-link" href="{% url 'product-list'%}">Products</a>
+      </li>
+      <li class="nav-item {% if team %}active{%endif%}">
+        <a class="nav-link" href="{% url 'about-us'%}">About Us</a>
+      </li>
+      <li class="nav-item {% if contact_team %}active{%endif%}">
+        <a class="nav-link" href="{% url 'contact-us'%}">Contact</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- <nav class="navbar navbar-expand-lg bg-primary">
       <div class="d-flex">
         <div class="d-flex flex-row deephidelogo">
           <a class="deep-max" href="{% url 'homepage'%}"><img src="{%static 'assets/img/logo7.png'%}" alt="AGpashmina" width="80px" height="auto"></a><h3 class="deep-max" style="color:#f3c500; padding-top:33px;">Pashmina</h3>
@@ -25,5 +50,5 @@
       </div>
       </div>
 
-    </nav>
-    <!-- navigaion ends here -->
+    </nav> -->
+<!-- navigaion ends here -->
