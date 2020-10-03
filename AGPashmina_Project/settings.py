@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'AGPashmina_Project.wsgi.application'
 DATABASES = {
 'default': {
     'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'db_agpashmina_project',
+    'NAME': 'pandey',
     'HOST': '127.0.0.1',
     'PORT': '3306',
-    'USER': 'root',
+    'USER': 'milantarami',
     'PASSWORD': '',
     'OPTIONS': {
         'sql_mode': 'STRICT_ALL_TABLES',
