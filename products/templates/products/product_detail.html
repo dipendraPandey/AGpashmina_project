@@ -18,7 +18,10 @@
                         </div>
                         <div class="sp-wrap">
                             <a href="{{ product.image.url}}"> <img src="{{ product.image.url}}" alt=""></a>
-                            <a href="../assets/img/news/img02.jpg"> <img src="../assets/img/news/img02.jpg" alt=""></a>
+                            {%for item in product.product_image.all %}
+                            <a href="{{ item.image.url}}"> <img src="{{ item.image.url}}" alt=""></a>
+                            {%endfor%}
+
                         </div>
                     </div>
                     <div class="col-12 col-md-6 px-3">

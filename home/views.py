@@ -49,10 +49,10 @@ class ContactUsView(CreateView):
                 messages.success(request, 'Thank you for Message !')
                 send_mail(
                     'Contact form',
-                    '{} is trying to contact us Email:{} message{}'.format(name, email,text_message),
+                    '{} is trying to contact us Email:{} message{}'.format(name, email, text_message),
                     'agpashmina.info@gmail.com',
                     ['dipendrapandey666@gmail.com'],
-                    fail_silently=False,
+                    fail_silently=True,
                 )
                 self.context['form'] = ContactForm()
                 return redirect('contact-us')

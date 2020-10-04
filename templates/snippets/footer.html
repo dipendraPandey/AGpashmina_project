@@ -3,20 +3,18 @@
   <div class="row bg-light pt-5 sub-footer">
     <div class="col-md-4 col-lg-5 col-sm-12 px-5 pb-3">
       <h4 class="sub-footer-title">Who We Are</h4>
-      <p class="text-justify">It is a long established fact that a reader will be distracted by the readable
-        content of a page when
-        looking at its layout.
+       <p class="text-justify">AG  Pashmina Private Limited is a manufacturer and distributor of finest quality of cashmere products. Exploring local handmade  cashmere products in the every corner of the world is our main motto
+          <br />
         <br />
-        <br />
-        The point of using Lorem Ipsum is that it has a more-or-less normal letters, as opposed to using 'Content
-        here.</p>
+      We are based on a core value to provide an unparalleled quality of cashmere collections with our dedicated service to our customers. We have gone far lengths to make our customers happy.
+       </p>
     </div>
     <div class="col-md-4 col-lg-3 col-sm-12 px-5 pb-3">
       <h4 class="sub-footer-title">Contact Us </h4>
       <ul style=" list-style: none; padding: 0.2rem;">
-        <li><i class="fas fa-map-marker-alt mr-2"></i>Locations</li>
-        <li><i class="fas fa-mobile-alt mr-2"></i> 9844702481 </li>
-        <li><i class="far fa-envelope mr-2"></i>dipendra@dipen.com</li>
+        <li><i class="fas fa-map-marker-alt mr-2"></i>{{contact.location}}</li>
+        <li><i class="fas fa-mobile-alt mr-2"></i> {{contact.phone}}</li>
+        <li><i class="far fa-envelope mr-2"></i>{{contact.email}}</li>
       </ul>
     </div>
     <div class="col-md-4 col-lg-4 col-sm-12 px-5 pb-3">
@@ -36,15 +34,16 @@
       </div>
       <div class="footer-social-icons">
         <ul>
-          <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
-          <li><a class="facebook" href="#" target="_blank"> <i class="fab fa-facebook"></i></a></li>
-          <li><a class="Google plus" href="#" target="_blank"><i class="fab fa-google"></i></a></li>
-          <li><a class="Instagram" href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+          <li><a class="twitter" href="{{links.twitter_link}}" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
+              </li>
+              <li><a class="facebook" href="{{links.facebook_link}}" target="_blank"> <i class="fab fa-facebook fa-2x"></i></a></li>
+              <li><a class="Google plus" href="{{links.google_link}}" target="_blank"><i class="fab fa-google fa-2x"></i></a></li>
+              <li><a class="Instagram" href="{{links.instagram_link}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
         </ul>
       </div>
       <div class="copyrights">
         <p>
-          © 2020 <a class="organization" href="">AGpashmina</a>. All Rights Reserved | Developed by
+          © 2020 <a class="organization" href="{% url 'homepage' %}">AGpashmina</a>. All Rights Reserved | Developed by
           <a class="developer" href="https://www.facebook.com/deepindraw">Dipendra Pandey</a>
         </p>
       </div>

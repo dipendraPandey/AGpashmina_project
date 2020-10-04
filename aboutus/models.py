@@ -23,10 +23,14 @@ class AboutCompany(models.Model):
             raise ValidationError("")
         width, height = get_image_dimensions(self.image)
         if width < 300 or width > 1000:
-            raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
-        ratio = width/height
-        if ratio < 0.8 or ratio > 1.25:
-            raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
+            raise ValidationError("Image width invalid ! min-width:300 , max-width:1200")
+
+        if height < 300 or height > 1200:
+            raise ValidationError("Image height invalid! min-height:300 , max-height:1200")
+
+        ratio = width / height
+        if ratio < 0.65 or ratio > 1.25:
+            raise ValidationError("Image ratio invalid ! min-ratio:0.65 : max-ratio:1.25")
 
     class Meta:
         verbose_name = 'Company Detail'
@@ -52,10 +56,14 @@ class Team(models.Model):
             raise ValidationError("")
         width, height = get_image_dimensions(self.image)
         if width < 300 or width > 1000:
-            raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
-        ratio = width/height
-        if ratio < 0.8 or ratio > 1.25:
-            raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
+            raise ValidationError("Image width invalid ! min-width:300 , max-width:1200")
+
+        if height < 300 or height > 1200:
+            raise ValidationError("Image height invalid! min-height:300 , max-height:1200")
+
+        ratio = width / height
+        if ratio < 0.65 or ratio > 1.25:
+            raise ValidationError("Image ratio invalid ! min-ratio:0.65 : max-ratio:1.25")
 
     class Meta:
         verbose_name = 'Team Member'
