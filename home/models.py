@@ -14,11 +14,6 @@ class CarouselHome(models.Model):
     title = models.CharField(max_length=120, blank=False)
     image = models.ImageField(upload_to='home/carousel_latest/', validators=[validate_image], blank=False)
 
-    # def save(self, force_insert=False, force_update=False, using=None,
-    #          update_fields=None):
-    #     if self.image == '':
-    #         raise ValidationError("Image required !")
-
     def __str__(self):
         return self.title
 
