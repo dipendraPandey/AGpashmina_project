@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.views.generic import ListView, CreateView
 from aboutus.models import Team
-from .models import CarouselLatest, CarouselTrending, OurProduct
+from .models import CarouselHome, OurProduct
 from products.models import Product
 from .forms import ContactForm
 from django.contrib import messages
@@ -11,18 +11,19 @@ from django.contrib import messages
 
 class HomeView(ListView):
     template_name = 'home/homepage.html'
-    context_object_name = 'carousel_latest'
+    context_object_name = 'carousel_home'
 
     def get_queryset(self):
-        self.carousel_latest = CarouselLatest.objects.all()[:3]
+        self.carousel_latest = CarouselHome.objects.all()[:3]
         return self.carousel_latest
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in the crousel
-        context['carousel_trending'] = CarouselTrending.objects.all().reverse()
-        context['feature_product'] = Product.objects.filter(feature_product=True)[:3]
+        context['trending_product'] = Product.objects.filter(trending_product=True)[:8]
+        context['feature_product'] = Product.objects.filter(feature_product=True)[:8]
+        context['latest_product'] = Product.objects.filter(latest_product=True)[:8]
         context['our_product'] = OurProduct.objects.all().reverse()[:3]
         return context
 

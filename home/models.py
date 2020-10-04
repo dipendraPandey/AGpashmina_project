@@ -10,31 +10,21 @@ def validate_image(image):
         raise ValidationError("Max size of file is %s MB" % limit_mb)
 
 
-class CarouselLatest(models.Model):
-    title = models.CharField(max_length=120)
-    detail = models.TextField(max_length=500)
-    image = models.ImageField(upload_to='home/carousel_latest/', validators=[validate_image])
+class CarouselHome(models.Model):
+    title = models.CharField(max_length=120, blank=False)
+    image = models.ImageField(upload_to='home/carousel_latest/', validators=[validate_image], blank=False)
+
+    # def save(self, force_insert=False, force_update=False, using=None,
+    #          update_fields=None):
+    #     if self.image == '':
+    #         raise ValidationError("Image required !")
 
     def __str__(self):
         return self.title
 
     def clean(self):
-        width, height = get_image_dimensions(self.image)
-        if width < 300 or width > 1000:
-            raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
-        ratio = width/height
-        if ratio < 0.8 or ratio > 1.25:
-            raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
-
-
-class CarouselTrending(models.Model):
-    title = models.CharField(max_length=120)
-    image = models.ImageField(upload_to='home/carousel_trending', validators=[validate_image])
-
-    def __str__(self):
-        return self.title
-
-    def clean(self):
+        if self.image == '':
+            raise ValidationError("")
         width, height = get_image_dimensions(self.image)
         if width < 300 or width > 1000:
             raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
@@ -52,6 +42,8 @@ class OurProduct(models.Model):
         return self.title
 
     def clean(self):
+        if self.image == '':
+            raise ValidationError("")
         width, height = get_image_dimensions(self.image)
         if width < 300 or width > 1000:
             raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")

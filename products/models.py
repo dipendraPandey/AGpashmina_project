@@ -73,6 +73,8 @@ class Product(models.Model):
     p_size = models.ManyToManyField(ProductSize, related_name='p_size')
     colors = models.ManyToManyField(ProductColor, related_name='p_colors')
     feature_product = models.BooleanField(default=False)
+    latest_product = models.BooleanField(default=False)
+    trending_product = models.BooleanField(default=False)
     best_selling = models.BooleanField(default=False)
     image = models.ImageField(upload_to=upload_location_product, validators=[validate_image])
     date_created = models.DateTimeField(auto_now_add=True, null=True)
@@ -81,14 +83,14 @@ class Product(models.Model):
         return self.name
 
     def clean(self):
+        if self.image == '':
+            raise ValidationError("")
         width, height = get_image_dimensions(self.image)
         if width < 300 or width > 1000:
             raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
         ratio = width/height
         if ratio < 0.8 or ratio > 1.25:
             raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
-
-
 
     class Meta:
         verbose_name = 'Product'
@@ -110,6 +112,8 @@ class ProductImage(models.Model):
         return str(self.product)
 
     def clean(self):
+        if self.image == '':
+            raise ValidationError("")
         width, height = get_image_dimensions(self.image)
         if width < 300 or width > 1000:
             raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")

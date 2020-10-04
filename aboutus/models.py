@@ -19,6 +19,8 @@ class AboutCompany(models.Model):
         return self.title
 
     def clean(self):
+        if self.image == '':
+            raise ValidationError("")
         width, height = get_image_dimensions(self.image)
         if width < 300 or width > 1000:
             raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
@@ -46,6 +48,8 @@ class Team(models.Model):
         return self.name
 
     def clean(self):
+        if self.image == '':
+            raise ValidationError("")
         width, height = get_image_dimensions(self.image)
         if width < 300 or width > 1000:
             raise ValidationError("Image ratio invalid ! min-size:300x240, max-size:1000x1250 ")
