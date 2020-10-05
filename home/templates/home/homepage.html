@@ -22,7 +22,7 @@
     <div class="carousel-inner">
       {%for item in carousel_home %}
       <div class="carousel-item {%if forloop.first%}active{%endif%}">
-        <img class="d-block w-100" src="{{ item.image.url}}" alt="{{forloop.counter0}} slide">
+        <img class="d-block w-100" src="{{ item.image.url }}" alt="{{forloop.counter0}} slide">
       </div>
       {%endfor %}
     </div>
@@ -37,9 +37,6 @@
   </div>
   {% endif%}
   <!-- home page carousel ends -->
-  <div class="col-12 p-0">
-    {% main_frame_content %}
-  </div>
   <div class="container-fluid">
     <!-- latest items starts -->
     <div class="row latest-slick-row" style="background-color:#949ff3;">
@@ -51,7 +48,7 @@
 
           <div class="latest-slick-item">
             <a href="{% url 'product-detail' product.slug %}">
-              <img class="d-block" src="{{ product.image.url}}" alt="slide-image-name.png">
+              <img class="d-block" src="{{ product.image|thumbnail_url:'carousel'}}" alt="slide-image-name.png">
             </a>
 
           </div>
@@ -67,7 +64,7 @@
 
           <div class="latest-slick-item">
             <a href="{% url 'product-detail' product.slug %}">
-              <img class="d-block" src="{{ product.image.url}}" alt="slide-image-name.png">
+              <img class="d-block" src="{{product.image|thumbnail_url:'carousel'}}" alt="slide-image-name.png">
             </a>
 
           </div>

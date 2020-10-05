@@ -9,18 +9,6 @@
   padding-top: 80px;
 }
 
-/* for hiding and showing the logo*/
-}
-@media (max-width: 630px) {
-  .deephidelogo .deep-max{
-  display:none;
-}
-
-}
-@media (min-width: 630px) {
-  .deephidelogo .deep-min{
-  display:none;
-}
 
 /* for product buttons */
 .product__item {
@@ -203,6 +191,7 @@
   display: inline-block;
 }
 .footer-social-icons ul li {
+  list-style:none;
   display: inline-block;
   margin: 0.2em 0.8em;
 }
@@ -438,7 +427,6 @@ footer .copyrights .organization:hover {
 .navbar li a {
   color: #fff !important;
   font-family: "Nunito", "Segoe UI", arial;
-  font-variant: small-caps;
   font-size: 1.2rem;
 }
 

@@ -153,7 +153,7 @@ THUMBNAIL_ALIASES = {
         'avatar': {'size': (150, 150), 'crop': True},
         'product': {'size': (400, 400), 'crop': True},
         'details': {'size': (500, 500)},
-        'carousel': {'size': (500, 700), 'crop': True},
+        'carousel': {'size': (300, 300), 'crop': True},
     },
 }
 
